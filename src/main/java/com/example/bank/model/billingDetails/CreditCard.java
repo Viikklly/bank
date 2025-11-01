@@ -40,4 +40,8 @@ public class CreditCard extends BillingDetails {
     @NotNull
     @Column(name = "card_balance", columnDefinition = "NUMERIC(38,0)")
     protected BigDecimal cardBalance;
+
+    @NotNull
+    @Column(name = "is_active_card")
+    protected boolean isActiveCard = true;
 }

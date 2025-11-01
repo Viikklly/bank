@@ -1,5 +1,8 @@
 package com.example.bank.controller;
 
+import com.example.bank.DTO.billingDetails.BillingDetailsCreateDto;
+import com.example.bank.DTO.billingDetails.BillingDetailsResponseDto;
+import com.example.bank.service.billingDetails.BillingDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/billingDetails")
 public class BillingDetailsController {
-    /*
+
     BillingDetailsService billingDetailsService;
 
 
@@ -22,7 +25,5 @@ public class BillingDetailsController {
     public BillingDetailsResponseDto createBillingDetails(@RequestBody BillingDetailsCreateDto dto) {
         return billingDetailsService.createBillingDetails(dto);
     }
-
-     */
 
 }

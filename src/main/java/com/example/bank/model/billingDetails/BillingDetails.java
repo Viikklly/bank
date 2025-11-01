@@ -2,7 +2,7 @@ package com.example.bank.model.billingDetails;
 
 
 import com.example.bank.enums.BillingType;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.example.bank.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,14 +27,14 @@ public abstract class BillingDetails {
 
     @Id
     // для SINGLE_TABLE другая стратегия генерации ключа
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /// Держатель счета
-    @Column(name = "holder_billing")
-    private String holderBilling;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-
-    @Column(name = "bd_type")
+    @Column(name = "billing_type")
     private BillingType billingType;
 }

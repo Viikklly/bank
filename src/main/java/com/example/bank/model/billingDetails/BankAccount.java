@@ -41,5 +41,9 @@ public class BankAccount extends BillingDetails {
     @Column(name = "wallet_balance", columnDefinition = "NUMERIC(38,0)")
     protected BigDecimal walletBalance;
 
+    @NotNull
+    @Column(name = "is_active_account")
+    protected boolean isActiveAccount = false;
+
 
 }
