@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: /database/v.1.0.0/001_creation_schema.sql
+  - include:
+      file: /database/v.1.0.0/002_creation_user_table.sql
+  - include:
+      file: /database/v.1.0.0/003_creation_billing_details_table.sql

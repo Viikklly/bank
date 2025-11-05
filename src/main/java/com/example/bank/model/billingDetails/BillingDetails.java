@@ -35,6 +35,7 @@ public abstract class BillingDetails {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "billing_type")
     private BillingType billingType;
 }

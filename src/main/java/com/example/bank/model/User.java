@@ -36,7 +36,7 @@ public class User {
     @Column(name = "pin")
     private String pinHash;        // пин-код для операций
 
-    @OneToMany(mappedBy = "id",
+    @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)

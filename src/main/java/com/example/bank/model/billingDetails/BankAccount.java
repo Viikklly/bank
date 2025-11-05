@@ -44,6 +44,4 @@ public class BankAccount extends BillingDetails {
     @NotNull
     @Column(name = "is_active_account")
     protected boolean isActiveAccount = false;
-
-
 }

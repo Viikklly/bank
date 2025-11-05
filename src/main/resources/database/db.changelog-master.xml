@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <!-- Ваши include остаются без изменений -->
+    <include file="/database/v.1.0.0/001_creation_schema.sql"/>
+    <include file="/database/v.1.0.0/002_creation_user_table.sql"/>
+    <include file="/database/v.1.0.0/003_creation_billing_details_table.sql"/>
+    <include file="/database/testdate/100_create_test_date.sql"/>
+</databaseChangeLog>
