@@ -25,5 +25,4 @@ public class BillingDetailsController {
     public BillingDetailsResponseDto createBillingDetails(@RequestBody BillingDetailsCreateDto dto) {
         return billingDetailsService.createBillingDetails(dto);
     }
-
 }

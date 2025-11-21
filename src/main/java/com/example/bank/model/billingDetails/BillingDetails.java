@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 //Работает с абстрактными классами
 @SuperBuilder
 @Entity
-@Table(name = "billing_details")
+@Table(name = "billing_details", schema = "bank_schema")
 // для отображения с одной таблицей для целой иерархии
 // классов используем стратегию наследования SINGLE_TABLE
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

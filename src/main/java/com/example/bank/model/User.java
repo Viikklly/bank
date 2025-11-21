@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "bank_schema")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

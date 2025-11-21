@@ -1,1 +1,1 @@
-CREATE SCHEMA IF NOT EXISTS bank.bank_schema;
+CREATE SCHEMA IF NOT EXISTS bank_schema

@@ -5,3 +5,6 @@ databaseChangeLog:
       file: /database/v.1.0.0/002_creation_user_table.sql
   - include:
       file: /database/v.1.0.0/003_creation_billing_details_table.sql
+  - include:
+      file: /database/v.1.0.0/004_create_transactions_table.sql
+

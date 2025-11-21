@@ -10,5 +10,6 @@
     <include file="/database/v.1.0.0/001_creation_schema.sql"/>
     <include file="/database/v.1.0.0/002_creation_user_table.sql"/>
     <include file="/database/v.1.0.0/003_creation_billing_details_table.sql"/>
-    <include file="/database/testdate/100_create_test_date.sql"/>
+    <include file="/database/v.1.0.0/004_create_transactions_table.sql"/>
+    <!--<include file="/database/testdate/100_create_test_date.sql"/>-->
 </databaseChangeLog>

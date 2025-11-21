@@ -1,5 +1,5 @@
 -- Создаем таблицу billing_details с SINGLE_TABLE стратегией
-CREATE TABLE billing_details (
+CREATE TABLE IF NOT EXISTS bank_schema.billing_details (
                                  id BIGSERIAL PRIMARY KEY,
                                  user_id INTEGER NOT NULL,
                                  billing_type VARCHAR(50),

@@ -1,5 +1,5 @@
 -- Создаем таблицу users
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS bank_schema.users (
                        user_id SERIAL PRIMARY KEY,
                        fio VARCHAR(255),
                        phone_number VARCHAR(15) NOT NULL,

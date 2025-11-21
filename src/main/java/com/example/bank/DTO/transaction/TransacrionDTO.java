@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 
 public class TransacrionDTO {
     private Integer id;
-    private User user; // переименовано из userId
-    private BillingDetails billingDetails;
+    private BillingDetails fromAccount;
+    private BillingDetails toAccount;
     private BigDecimal amount;
     private TransactionType type; // TRANSFER, PAYMENT, DEPOSIT
     private String description;

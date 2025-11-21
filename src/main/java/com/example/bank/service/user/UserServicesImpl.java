@@ -36,35 +36,25 @@ public class UserServicesImpl implements UserServices {
                 .phoneNumber(userDTO.getPhoneNumber())
                 .passwordHash(userDTO.getPassword())
                 .pinHash(userDTO.getPin())
+                .bankAccounts(new ArrayList<>()) // инициализируем пустой список
                 .build();
 
         User savedUser = userRepository.save(user);
         log.info("Создан User с id: {}", savedUser.getId());
 
-        // Создаем billing details для user
-        List<BillingDetails> billingDetailsList = new ArrayList<>();
-
-        // преобразуем то, что пришло из DTO
+        // Создаем billing details через сервис
         List<BillingDetailsCreateDto> userBillingDetailsDTO = userDTO.getUserBillingDetails();
-
         if (userBillingDetailsDTO != null) {
             userBillingDetailsDTO.forEach(bankAccount -> {
                 bankAccount.setIdUser(savedUser.getId());
-
-                /// заполняем список billingDetailsList (так как billingFactory преобразует)
-            billingDetailsList.add(billingFactory.createBillingDetailsEntity(bankAccount));
-
-                /// billingDetailsService.createBillingDetails - и преобразует и сохраняет новые банковские аккаунты
+                // Сервис сам сохраняет и возвращает DTO
                 BillingDetailsResponseDto billingDetails = billingDetailsService.createBillingDetails(bankAccount);
             });
             log.info("Created {} billing details for user: {}", userBillingDetailsDTO.size(), savedUser.getId());
         }
 
-        //Сохраняем лист аккаунтов в юзера
-        user.setBankAccounts(billingDetailsList);
-
-        User saved = userRepository.save(user);
-
-        return saved.toUserResponseDto();
+        // Обновляем пользователя из базы (со всеми связями)
+        User updatedUser = userRepository.findById(savedUser.getId()).orElseThrow();
+        return updatedUser.toUserResponseDto();
     }
 }
