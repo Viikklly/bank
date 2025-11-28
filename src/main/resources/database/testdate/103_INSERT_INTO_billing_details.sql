@@ -1,0 +1,7 @@
+INSERT INTO bank_schema.billing_details
+(user_id, billing_type, bd_type, account_number, bank_name, swift_code, wallet_balance, is_active_account) VALUES
+                                                                                                               (1, 'BANK_ACCOUNT', 'BankAccount', '40702810100010000001', 'Сбербанк', 'SABRRUMM', 100000.00, true),
+                                                                                                               (1, 'BANK_ACCOUNT', 'BankAccount', '40817810000000012345', 'Тинькофф', 'TICSRUMM', 50000.00, true),
+                                                                                                               (2, 'BANK_ACCOUNT', 'BankAccount', '40702810200020000002', 'ВТБ', 'VTBRRUMM', 75000.00, true),
+                                                                                                               (3, 'BANK_ACCOUNT', 'BankAccount', '40702810300030000003', 'Альфа-Банк', 'ALFARUMM', 150000.00, true),
+                                                                                                               (4, 'BANK_ACCOUNT', 'BankAccount', '40702810400040000004', 'Газпромбанк', 'GABRRUMM', 25000.00, false);

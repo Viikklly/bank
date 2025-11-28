@@ -5,18 +5,18 @@ CREATE TABLE IF NOT EXISTS bank_schema.billing_details (
                                  billing_type VARCHAR(50),
                                  bd_type VARCHAR(50), -- Дискриминатор для Hibernate
 
-    -- Общие поля для всех типов billing details
+    -- Общие поля для типов billing details
                                  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    -- Поля специфичные для CreditCard
+    -- Поля для CreditCard
                                  card_number VARCHAR(255),
                                  expiry_year VARCHAR(255),
                                  expiry_month VARCHAR(255),
                                  card_balance NUMERIC(38,0) DEFAULT 0,
                                  is_active_card BOOLEAN DEFAULT true,
 
-    -- Поля специфичные для BankAccount
+    -- Поля для BankAccount
                                  account_number VARCHAR(255),
                                  bank_name VARCHAR(255),
                                  swift_code VARCHAR(255),

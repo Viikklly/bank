@@ -1,18 +1,23 @@
 package com.example.bank.DTO.transaction;
 
 import com.example.bank.enums.TransactionType;
-import com.example.bank.model.User;
-import com.example.bank.model.billingDetails.BillingDetails;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class TransacrionDTO {
-    private Integer id;
-    private BillingDetails fromAccount;
-    private BillingDetails toAccount;
-    private BigDecimal amount;
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class TransactionalResponseDto {
     private TransactionType type; // TRANSFER, PAYMENT, DEPOSIT
+    private String fromAccountNumber;
+    private String toAccountNumber;
+    private BigDecimal amount;
     private String description;
     private LocalDateTime date;
     private String status;

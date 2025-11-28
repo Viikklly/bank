@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Data
@@ -23,6 +24,7 @@ import lombok.experimental.SuperBuilder;
 @DiscriminatorColumn(name = "bd_type")
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 public abstract class BillingDetails {
 
     @Id

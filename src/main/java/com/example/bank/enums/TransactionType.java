@@ -1,6 +1,8 @@
 package com.example.bank.enums;
 
 public enum TransactionType {
-    PAYMENT,
-    DEPOSIT
+    DEPOSIT,    // Пополнение
+    WITHDRAWAL, // Снятие
+    TRANSFER,   // Перевод
+    PAYMENT     // Платеж
 }

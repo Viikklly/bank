@@ -18,7 +18,7 @@ spring:
           create_namespaces: true
   liquibase:
     change-log: classpath:database/db.changelog-master.yml
-    enabled: true
+    enabled: false
 server:
  port: 8082
  servlet:
