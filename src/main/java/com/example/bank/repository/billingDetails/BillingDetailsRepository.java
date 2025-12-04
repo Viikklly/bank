@@ -10,12 +10,14 @@ import java.util.Optional;
 
 @Repository
 public interface BillingDetailsRepository extends JpaRepository<BillingDetails, Integer> {
-    // Найдет любой тип счета по ID
+    ///  любой тип счета по ID
     Optional<BillingDetails> findById(Long id);
 
-    // Найдет все счета пользователя (и CreditCard и BankAccount)
+    ///  все счета пользователя (и CreditCard и BankAccount)
     List<BillingDetails> findByUserId(Long userId);
 
-    // Найдет счета по типу биллинга
+    /// счет по типу биллинга
     List<BillingDetails> findByBillingType(BillingType billingType);
+
+
 }

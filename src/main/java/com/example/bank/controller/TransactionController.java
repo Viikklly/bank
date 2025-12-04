@@ -5,6 +5,7 @@ import com.example.bank.DTO.transaction.TransactionalResponseDto;
 import com.example.bank.service.transactional.TransactionalServices;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransactionController {
     TransactionalServices transactionalServices;
 
-    @PostMapping
-    TransactionalResponseDto deposit(TransactionalRequestDto transactionalDto){
+    @PostMapping("/deposit")
+    TransactionalResponseDto deposit(@RequestBody TransactionalRequestDto transactionalDto){
         return transactionalServices.deposit(transactionalDto);
     }
+
 }

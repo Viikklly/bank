@@ -11,13 +11,14 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDateTime;
 
-@RestControllerAdvice
+@RestControllerAdvice   /// перехватчик исключений
 @Slf4j
 public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(AccountNotFoundException.class)
     public ResponseEntity<ErrorResponseDTO> handleAccountNotFound(AccountNotFoundException ex) {
+        /// Логируем предупреждение
         log.warn("Account not found: {}", ex.getMessage());
 
         ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
@@ -35,6 +36,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AccountBlockedException.class)
     public ResponseEntity<ErrorResponseDTO> handleAccountBlocked(AccountBlockedException ex) {
+        /// Логируем предупреждение
         log.warn("Account blocked: {}", ex.getMessage());
 
         ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
@@ -53,6 +55,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InsufficientFundsException.class)
     public ResponseEntity<ErrorResponseDTO> handleInsufficientFunds(InsufficientFundsException ex) {
+        /// Логируем предупреждение
         log.warn("Insufficient funds: {}", ex.getMessage());
 
         ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
@@ -69,6 +72,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponseDTO> handleIllegalArgument(IllegalArgumentException ex) {
+        /// Логируем предупреждение
         log.warn("Validation error: {}", ex.getMessage());
 
         ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
@@ -85,6 +89,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDTO> handleGenericException(Exception ex) {
+        /// Логируем с полным стектрейсом
         log.error("Internal server error: {}", ex.getMessage(), ex);
 
         ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder()
@@ -102,7 +107,7 @@ public class GlobalExceptionHandler {
     private String getCurrentRequestPath() {
         try {
             return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                    .getRequest().getRequestURI();
+                    .getRequest().getRequestURI(); ///Получаем URL
         } catch (IllegalStateException e) {
             return "N/A";
         }

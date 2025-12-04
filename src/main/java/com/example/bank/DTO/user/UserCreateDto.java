@@ -38,4 +38,6 @@ public class UserCreateDto {
 
     @Schema(description = "Банковские данные")
     private List<BillingDetailsCreateDto> userBillingDetails;
+
+
 }

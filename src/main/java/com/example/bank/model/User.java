@@ -2,7 +2,6 @@ package com.example.bank.model;
 
 import com.example.bank.DTO.user.UserResponseDto;
 import com.example.bank.enums.BillingType;
-import com.example.bank.model.billingDetails.BankAccount;
 import com.example.bank.model.billingDetails.BillingDetails;
 import jakarta.persistence.*;
 import lombok.*;
