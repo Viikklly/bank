@@ -126,6 +126,12 @@ public class TransactionalServicesImpl implements TransactionalServices {
         validateAccountForTransaction(billingDetailsFromAcc);
         validateAccountForTransaction(billingDetailsToAcc);
 
+        /// Проверка хватает ли денег для перевода
+        validateAmount(billingDetailsFromAcc, amount);
+
+        ///  Перевод денег с одного баланса на другой, с учетом транзакционного подхода
+        transferBetweenAccounts(billingDetailsFromAcc, billingDetailsToAcc, amount);
+
         /// Создаем транзакцию пополнения
         Transaction transaction = createTransaction(
                 billingDetailsFromAcc, billingDetailsToAcc, amount,
@@ -133,10 +139,10 @@ public class TransactionalServicesImpl implements TransactionalServices {
                 transactionalClinicRequestDto.getDescription() != null ? transactionalClinicRequestDto.getDescription() : "Пополнение счета от ООО Лапки царапки"
         );
 
-        Transaction savedTransaction = saveTransaction(transaction);
+        Transaction savedTransaction = transactionRepository.save(transaction);
 
 
-        log.info("Пополнение счета {} на {} успешно выполнено. Новый баланс получателя: {}",
+        log.info("Пополнение счета {} на {} успешно выполнено. Новый баланс клиники: {}",
                 billingDetailsFromAcc.getId(), billingDetailsToAcc, getAccountBalance(billingDetailsToAcc));
 
         return savedTransaction.toResponseDto();
