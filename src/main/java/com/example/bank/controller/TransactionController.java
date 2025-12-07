@@ -1,5 +1,6 @@
 package com.example.bank.controller;
 
+import com.example.bank.DTO.transaction.TransactionalClinicRequestDto;
 import com.example.bank.DTO.transaction.TransactionalRequestDto;
 import com.example.bank.DTO.transaction.TransactionalResponseDto;
 import com.example.bank.service.transactional.TransactionalServices;
@@ -18,6 +19,11 @@ public class TransactionController {
     @PostMapping("/deposit")
     TransactionalResponseDto deposit(@RequestBody TransactionalRequestDto transactionalDto){
         return transactionalServices.deposit(transactionalDto);
+    }
+
+    @PostMapping("/deposit-clinic")
+    TransactionalResponseDto depositClinic(@RequestBody TransactionalClinicRequestDto transactionalDto){
+        return transactionalServices.depositClinic(transactionalDto);
     }
 
 }

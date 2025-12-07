@@ -1,16 +1,20 @@
 package com.example.bank.service.transactional;
 
+import com.example.bank.DTO.transaction.TransactionalClinicRequestDto;
 import com.example.bank.DTO.transaction.TransactionalRequestDto;
 import com.example.bank.DTO.transaction.TransactionalResponseDto;
 import com.example.bank.enums.TransactionType;
 import com.example.bank.exceptions.AccountBlockedException;
 import com.example.bank.exceptions.AccountNotFoundException;
 import com.example.bank.exceptions.InsufficientFundsException;
+import com.example.bank.exceptions.NotFoundException;
 import com.example.bank.model.Transaction;
 import com.example.bank.model.billingDetails.BankAccount;
 import com.example.bank.model.billingDetails.BillingDetails;
 import com.example.bank.model.billingDetails.CreditCard;
+import com.example.bank.repository.billingDetails.BankAccountRepository;
 import com.example.bank.repository.billingDetails.BillingDetailsRepository;
+import com.example.bank.repository.billingDetails.CreditCardRepository;
 import com.example.bank.repository.transactional.TransactionalRepository;
 import com.example.bank.repository.user.UserRepository;
 import jakarta.transaction.Transactional;
@@ -21,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,6 +36,10 @@ public class TransactionalServicesImpl implements TransactionalServices {
 
     @Autowired
     private BillingDetailsRepository billingDetailsRepository;
+    @Autowired
+    private CreditCardRepository creditCardRepository;
+    @Autowired
+    private BankAccountRepository bankAccountRepository;
     @Autowired
     private TransactionalRepository transactionRepository;
     @Autowired
@@ -94,6 +103,44 @@ public class TransactionalServicesImpl implements TransactionalServices {
 
 
 
+    /// ПОПОЛНЕНИЕ СЧЕТА КЛИНИКИ
+    public TransactionalResponseDto depositClinic(TransactionalClinicRequestDto transactionalClinicRequestDto) {
+        /// Валидация DTO
+        if (transactionalClinicRequestDto == null) {
+            throw new IllegalArgumentException("Запрос не может быть null");
+        }
+
+        /// получаем аккаунты
+        String fromAccountNameUser = transactionalClinicRequestDto.getFromAccountPaymentNumberUser();
+        String toAccountNameUser = transactionalClinicRequestDto.getToAccountPaymentNumberUser();
+
+        BillingDetails billingDetailsFromAcc = convertToBillingDetails(fromAccountNameUser);
+        BillingDetails billingDetailsToAcc = convertToBillingDetails(toAccountNameUser);
+
+
+        /// валидация суммы транзакции
+        BigDecimal amount = transactionalClinicRequestDto.getAmount();
+        validateTransactionAmount(amount);
+
+        /// Проверка счетов, на существование и активность
+        validateAccountForTransaction(billingDetailsFromAcc);
+        validateAccountForTransaction(billingDetailsToAcc);
+
+        /// Создаем транзакцию пополнения
+        Transaction transaction = createTransaction(
+                billingDetailsFromAcc, billingDetailsToAcc, amount,
+                TransactionType.DEPOSIT,
+                transactionalClinicRequestDto.getDescription() != null ? transactionalClinicRequestDto.getDescription() : "Пополнение счета от ООО Лапки царапки"
+        );
+
+        Transaction savedTransaction = saveTransaction(transaction);
+
+
+        log.info("Пополнение счета {} на {} успешно выполнено. Новый баланс получателя: {}",
+                billingDetailsFromAcc.getId(), billingDetailsToAcc, getAccountBalance(billingDetailsToAcc));
+
+        return savedTransaction.toResponseDto();
+    }
 
 
 
@@ -277,5 +324,32 @@ public class TransactionalServicesImpl implements TransactionalServices {
         return "Счет";
     }
 
+    /// преобразовать платежный номер в Bill Det
+    private BillingDetails convertToBillingDetails(String payNumber) {
+        String[] payNumSplit = payNumber.split("_");
+
+        if (payNumSplit.length != 2) {
+            throw new IllegalArgumentException("Неверный формат: " + payNumber);
+        }
+
+        String type = payNumSplit[0];
+        String number = payNumSplit[1];
+
+        switch (type) {
+            case "BA":
+                BankAccount bankAccount = bankAccountRepository.findByAccountNumber(number)
+                        .orElseThrow(() -> new NotFoundException("Банковский счет не найден"));
+                return bankAccount;
+
+            case "CC":
+                CreditCard creditCard = creditCardRepository.findByCardNumber(number)
+                        .orElseThrow(() -> new NotFoundException("Кредитная карта не найдена"));
+                return creditCard;
+
+            default:
+                throw new IllegalArgumentException("Неизвестный тип: " + type);
+        }
+
+    }
 
 }
